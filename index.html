@@ -2,24 +2,40 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ember Starter Kit</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<title>Emma</title>
 </head>
 <body>
 
   <script type="text/x-handlebars">
-    <h2>Welcome to Ember.js</h2>
-
-    {{outlet}}
+     <h2>Emma: my first Ember.js app</h2>
+     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name="index">
-    <ul>
-      {{#each user in model}}
-        <li>{{user.first}} {{user.last}}</li>
-      {{/each}}
-    </ul>
+  <script type="text/x-handlebars">
+    <div class="container">
+      <div class="row-fluid">
+        <ul class="nav nav-list span3 well">
+          {{#each model}}
+          <li>{{#linkTo "user" this}}{{first}}{{/linkTo}}</li>
+          {{/each}}
+        </ul>
+        <div class="span9 well">{{outlet}}</div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="user">
+    <h2>
+      {{first}} {{last}}
+      <img {{bindAttr src="avatar"}} class="pull-right" width=50 />
+    </h2>
+    <dl>
+      <dt>First</dt>
+      <dd>{{first}}</dd>
+      <dt>Last</dt>
+      <dd>{{last}}</dd>
+    </dl>
   </script>
 
   <script src="js/libs/jquery-1.9.1.js"></script>
