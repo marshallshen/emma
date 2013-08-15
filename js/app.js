@@ -1,24 +1,14 @@
 var App = Ember.Application.create();
 
-// App.Router.map(function(){
-//   this.resource('user', {path: '/users/:user_id'});
-// });
-
-// App.UserRoute = Ember.Route.extend({
-//   model: function(params){
-//     return users[params.user_id]
-//   }
-// });
-
-// App.IndexRoute = Ember.Route.extend({
-//   model: function(){
-//     return users;
-//   }
-// });
-
-
 App.Router.map(function() {
   this.resource('user', {path: '/users/:user_id'});
+  this.resource('editUser', {path: '/users/:user_id/edit'});
+});
+
+App.ApplicationRoute = Ember.Route.extend({
+  model: function() {
+    return users;
+  }
 });
 
 App.UserRoute = Ember.Route.extend({
@@ -27,9 +17,16 @@ App.UserRoute = Ember.Route.extend({
   }
 });
 
-App.ApplicationRoute = Ember.Route.extend({
-  model: function() {
-    return users;
+App.EditUserRouter = Ember.Route.extend({
+  model: function(params){
+    return users[params.user_id];
+  },
+
+  events: {
+    save: function(){
+      var user = this.modelFor('editUser');
+      this.transitionTo('user', user);
+    }
   }
 });
 
